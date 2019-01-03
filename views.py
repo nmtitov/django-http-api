@@ -4,13 +4,22 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def index(request):
-    data = {
-        "type": "result",
-        "data": {
-            "reply": "It works!",
-        },
-    }
-    return JsonResponse(data, status=405)
+    if request.method == "GET":
+        data = {
+            "type": "result",
+            "data": {
+                "reply": "It works!",
+            },
+        }
+        return JsonResponse(data, status=405)
+    else:
+        data = {
+            "type": "error",
+            "data": {
+                "message": "Not allowed",
+            },
+        }
+        return JsonResponse(data, status=405)
 
 
 @csrf_exempt
