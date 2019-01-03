@@ -27,8 +27,8 @@ def error(name, error_type=None, message=None, status=500):
     return JsonResponse(response, status=status, json_dumps_params=JSON_DUMPS)
 
 
-def method_not_allowed(message=None):
-    return error("method-not-allowed", message=message, status=405)
+def method_not_allowed():
+    return error("method-not-allowed", status=405)
 
 
 def get_exception():
