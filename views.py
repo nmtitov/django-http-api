@@ -1,6 +1,8 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
+@csrf_exempt
 def index(request):
     data = {
         "type": "result",
@@ -11,6 +13,7 @@ def index(request):
     return JsonResponse(data, status=405)
 
 
+@csrf_exempt
 def counterparties(request):
     if request.method == "GET":
         response = {
@@ -55,6 +58,7 @@ def counterparties(request):
         return JsonResponse(data, status=405)
 
 
+@csrf_exempt
 def items(request):
     data = {
         "type": "error",
@@ -65,6 +69,7 @@ def items(request):
     return JsonResponse(data, status=405)
 
 
+@csrf_exempt
 def settings(request):
     data = {
         "type": "error",
