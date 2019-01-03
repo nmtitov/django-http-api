@@ -1,90 +1,57 @@
 from django.core.exceptions import SuspiciousOperation
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from .response import result, error, method_not_allowed
 
 
 @csrf_exempt
 def index(request):
     if request.method == "GET":
         data = {
-            "type": "result",
-            "data": {
-                "message": "It works!",
-            },
+           "message": "It works!",
         }
-        return JsonResponse(data, status=405)
+        return result(data)
     else:
-        data = {
-            "type": "error",
-            "data": {
-                "message": "Not allowed",
-            },
-        }
-        return JsonResponse(data, status=405)
+        return method_not_allowed()
 
 
 @csrf_exempt
 def clients(request):
     if request.method == "GET":
-        response = {
-            "type": "result",
-            "data": [
-                {
-                    "first_name": "Nikita",
-                    "last_name": "Titov",
-                    "email": "nmtitov@ya.ru",
-                    "github": "https://github.com/nmtitov",
-                },
-                {
-                    "first_name": "Nikita",
-                    "last_name": "Titov",
-                    "email": "nmtitov@ya.ru",
-                    "github": "https://github.com/nmtitov",
-                },
-                {
-                    "first_name": "Nikita",
-                    "last_name": "Titov",
-                    "email": "nmtitov@ya.ru",
-                    "github": "https://github.com/nmtitov",
-                },
-            ],
-        }
-        return JsonResponse(response, status=200)
+        data = [
+           {
+               "first_name": "Nikita",
+               "last_name": "Titov",
+               "email": "nmtitov@ya.ru",
+               "github": "https://github.com/nmtitov",
+           },
+           {
+               "first_name": "Nikita",
+               "last_name": "Titov",
+               "email": "nmtitov@ya.ru",
+               "github": "https://github.com/nmtitov",
+           },
+           {
+               "first_name": "Nikita",
+               "last_name": "Titov",
+               "email": "nmtitov@ya.ru",
+               "github": "https://github.com/nmtitov",
+           },
+        ]
+        return result(data)
     elif request.method == "POST":
         data = {
-            "type": "result",
-            "data": {
-                "message": "Hello, World!",
-            },
+            "message": "Thanks for posting!",
         }
-        return JsonResponse(data, status=200)
+        return result(data, status=201)
     else:
-        data = {
-            "type": "error",
-            "data": {
-                "message": "Not allowed",
-            },
-        }
-        return JsonResponse(data, status=405)
+        return method_not_allowed()
 
 
 @csrf_exempt
 def items(request):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Not allowed",
-        },
-    }
-    return JsonResponse(data, status=405)
+    return method_not_allowed()
 
 
 @csrf_exempt
 def settings(request):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Not allowed",
-        },
-    }
-    return JsonResponse(data, status=405)
+    return method_not_allowed()
