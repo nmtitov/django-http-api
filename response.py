@@ -8,7 +8,7 @@ def result(data, status=200):
         "type": "result",
         "data": data,
     }
-    return JsonResponse(response, status=status)
+    return JsonResponse(response, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
 
 
 def error(name, error_type=None, message=None, status=500):
@@ -28,7 +28,7 @@ def error(name, error_type=None, message=None, status=500):
             "exception": exception,
         },
     }
-    return JsonResponse(response, status=status)
+    return JsonResponse(response, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
 
 
 def method_not_allowed(message=None):
