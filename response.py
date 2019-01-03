@@ -34,7 +34,7 @@ def get_exception():
         return {
             "name": "{module}.{name}".format(module=type.__module__, name=type.__name__),
             "value": str(value),
-            "traceback": format_exc().splitlines(),
+            "stack_trace": format_exc().splitlines(),
         }
     else:
         return None
