@@ -1,3 +1,4 @@
+from django.core.exceptions import SuspiciousOperation
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -8,7 +9,7 @@ def index(request):
         data = {
             "type": "result",
             "data": {
-                "reply": "It works!",
+                "message": "It works!",
             },
         }
         return JsonResponse(data, status=405)
@@ -53,7 +54,7 @@ def counterparties(request):
         data = {
             "type": "result",
             "data": {
-                "reply": "Hello, World!",
+                "message": "Hello, World!",
             },
         }
         return JsonResponse(data, status=200)
