@@ -14,4 +14,4 @@ def handler404(request, exception):
 
 
 def handler500(request):
-    return error("internal-server-error", message="Some message hopefully explaining what's going on", status=500)
+    return error("internal-server-error", status=500)
