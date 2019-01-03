@@ -11,10 +11,10 @@ def result(data, status=200):
     return JsonResponse(response, status=status)
 
 
-def error(name, message=None, status=500):
+def error(name, error_type=None, message=None, status=500):
     exc_type, value, traceback = exc_info()
     exception = {
-        "exc_name": str(exc_type.__name__),
+        "exc_name": exc_type.__name__,
         "exc_type": str(exc_type),
         "value": str(value),
         "traceback": format_exc().splitlines(),
@@ -23,6 +23,7 @@ def error(name, message=None, status=500):
         "type": "error",
         "data": {
             "name": name,
+            "error_type": error_type,
             "message": message,
             "exception": exception,
         },
