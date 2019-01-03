@@ -1,41 +1,18 @@
 from django.http import JsonResponse
+from .response import error
 
 
 def handler400(request, exception):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Client error",
-        },
-    }
-    return JsonResponse(data, status=400)
+    return error("client-error", status=400)
 
 
 def handler403(request, exception):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Permission denied",
-        },
-    }
-    return JsonResponse(data, status=403)
+    return error("permission denied", status=403)
 
 
 def handler404(request, exception):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Not found",
-        },
-    }
-    return JsonResponse(data, status=404)
+    return error("not-found", status=404)
 
 
 def handler500(request):
-    data = {
-        "type": "error",
-        "data": {
-            "message": "Internal server error",
-        },
-    }
-    return JsonResponse(data, status=500)
+    return error("internal-server-error", message="Some message hopefully explaining what's going on", status=500)
