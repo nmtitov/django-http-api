@@ -24,7 +24,7 @@ def index(request):
 
 
 @csrf_exempt
-def counterparties(request):
+def clients(request):
     if request.method == "GET":
         response = {
             "type": "result",
