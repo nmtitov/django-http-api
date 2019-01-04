@@ -1,31 +1,26 @@
-from django.http import JsonResponse
 from sys import exc_info
 from traceback import format_exc
 
 
-JSON_DUMPS = {"indent": 2, "sort_keys": False}
-
-
 def result(data, status=200):
-    response = {
+    return {
         "type": "result",
+        "status_code": status,
         "data": data,
     }
-    return JsonResponse(response, status=status, json_dumps_params=JSON_DUMPS)
 
 
 def error(name, error_type=None, message=None, status=500):
-    response = {
+    return {
         "type": "error",
+        "status_code": status,
         "data": {
             "name": name,
             "type": error_type,
-            "status_code": status,
             "message": message,
             "exception": get_exception(),
         },
     }
-    return JsonResponse(response, status=status, json_dumps_params=JSON_DUMPS)
 
 
 def method_not_allowed():
