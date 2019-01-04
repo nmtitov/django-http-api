@@ -20,6 +20,7 @@ def error(name, error_type=None, message=None, status=500):
         "data": {
             "name": name,
             "type": error_type,
+            "status_code": status,
             "message": message,
             "exception": get_exception(),
         },
