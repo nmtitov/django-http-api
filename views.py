@@ -5,7 +5,7 @@ from .models import error
 def json_response(func):
     def decorator(request, *args, **kwargs):
         response = func(request, *args, **kwargs)
-        status = response["status_code"]
+        status = response.get("status_code")
         return JsonResponse(response, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
     return decorator
 
