@@ -1,4 +1,4 @@
-from .response import error
+from .models import error
 
 # To enable handlers add the following lines to the project urls.py file
 # handler400 = 'http_api.views.handler400'
