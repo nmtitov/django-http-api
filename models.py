@@ -28,8 +28,8 @@ def method_not_allowed():
 
 
 def get_exception():
-    type, value, traceback = exc_info()
-    if type and value and traceback:
+    exc_type, value, traceback = exc_info()
+    if exc_type and value and traceback:
         return {
             "name": "{module}.{name}".format(module=type.__module__, name=type.__name__),
             "value": str(value),
