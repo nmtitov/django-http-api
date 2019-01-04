@@ -10,7 +10,7 @@ def result(data, status=200):
     }
 
 
-def error(name, error_type=None, message=None, status=500):
+def error(name, error_type=None, message=None, status=520):
     return {
         "type": "error",
         "status_code": status,
