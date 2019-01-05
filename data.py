@@ -31,7 +31,7 @@ def last_exception():
     exc_type, value, traceback = exc_info()
     if exc_type and value and traceback:
         return {
-            "name": "{module}.{name}".format(module=type.__module__, name=type.__name__),
+            "name": "{module}.{name}".format(module=exc_type.__module__, name=exc_type.__name__),
             "value": str(value),
             "stacktrace": format_exc().splitlines(),
         }
