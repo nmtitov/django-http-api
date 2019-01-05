@@ -4,5 +4,8 @@ from .models import Token
 
 @admin.register(Token)
 class TokenAdmin(admin.ModelAdmin):
-    readonly_fields=('value', 'created_at', 'used_at', )
+    list_filter = ("user__email", )
+    ordering = ["created_at"]
+    readonly_fields = ("value", "created_at", "used_at", )
+    search_fields = ["user__email"]
 

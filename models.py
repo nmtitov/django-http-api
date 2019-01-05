@@ -16,3 +16,6 @@ class Token(models.Model):
         if self._state.adding:
             self.value = token_hex()
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.value
