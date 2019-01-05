@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from .data import error
 
@@ -36,3 +37,14 @@ def handler404(request, exception):
 def handler500(request):
     return error("internal-server-error", error_type="handler500", status=500)
 
+
+def authentication_required(func):
+    def decorator(request, *args, **kwargs):
+        token = request.META['HTTP_X_TOKEN']
+        user = authenticate(request, token=token)
+        if user is not None:
+            login(request, user)
+            return func(request, *args, **kwargs)
+        else:
+            return error("Authentication required", error_type="authentication", status=403)
+    return decorator
