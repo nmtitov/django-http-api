@@ -18,4 +18,4 @@ class Session(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.token
+        return self.user.email
