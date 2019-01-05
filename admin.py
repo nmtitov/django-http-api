@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import Token
+from .models import Session
 
 
-@admin.register(Token)
-class TokenAdmin(admin.ModelAdmin):
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
     list_filter = ("user__email", )
     ordering = ["created_at"]
     readonly_fields = ("token", "created_at", "used_at", )

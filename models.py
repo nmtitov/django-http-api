@@ -3,7 +3,7 @@ from django.db import models
 from secrets import token_hex
 
 
-class Token(models.Model):
+class Session(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
