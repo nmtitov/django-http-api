@@ -1,5 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from sys import exc_info
+from traceback import format_exc
 from .data import error
 
 
@@ -18,24 +20,36 @@ def json_response(func):
 # handler500 = 'http_api.views.handler500'
 
 
+def get_exception():
+    exc_type, value, traceback = exc_info()
+    if exc_type and value and traceback:
+        return {
+            "name": "{module}.{name}".format(module=exc_type.__module__, name=exc_type.__name__),
+            "value": str(value),
+            "stacktrace": format_exc().splitlines(),
+        }
+    else:
+        return None
+
+
 @json_response
 def handler400(request, exception):
-    return error("client-error", error_type="handler400", status=400)
+    return error("client-error", error_type="handler400", exception=get_exception(), status=400)
 
 
 @json_response
 def handler403(request, exception):
-    return error("permission denied", error_type="handler403", status=403)
+    return error("permission denied", error_type="handler403", exception=get_exception(), status=403)
 
 
 @json_response
 def handler404(request, exception):
-    return error("not-found", error_type="handler404", status=404)
+    return error("not-found", error_type="handler404", exception=get_exception(), status=404)
 
 
 @json_response
 def handler500(request):
-    return error("internal-server-error", error_type="handler500", status=500)
+    return error("internal-server-error", error_type="handler500", exception=get_exception(), status=500)
 
 
 def authentication_required(func):
