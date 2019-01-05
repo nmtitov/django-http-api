@@ -18,7 +18,7 @@ def error(name, error_type=None, message=None, status=520):
             "name": name,
             "type": error_type,
             "message": message,
-            "exception": get_exception(),
+            "exception": last_exception(),
         },
     }
 
@@ -27,7 +27,7 @@ def method_not_allowed():
     return error("method-not-allowed", status=405)
 
 
-def get_exception():
+def last_exception():
     exc_type, value, traceback = exc_info()
     if exc_type and value and traceback:
         return {
