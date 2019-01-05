@@ -1,39 +1,18 @@
-from sys import exc_info
-from traceback import format_exc
+from django.conf import settings
+from django.db import models
+from secrets import token_hex
 
 
-def result(data, status=200):
-    return {
-        "type": "result",
-        "status_code": status,
-        "data": data,
-    }
+class Token(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    value = models.CharField(max_length=255, editable=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    used_at = models.DateTimeField(blank=True, null=True, editable=False)
 
-
-def error(name, error_type=None, message=None, status=520):
-    return {
-        "type": "error",
-        "status_code": status,
-        "data": {
-            "name": name,
-            "type": error_type,
-            "message": message,
-            "exception": last_exception(),
-        },
-    }
-
-
-def method_not_allowed():
-    return error("method-not-allowed", status=405)
-
-
-def last_exception():
-    exc_type, value, traceback = exc_info()
-    if exc_type and value and traceback:
-        return {
-            "name": "{module}.{name}".format(module=type.__module__, name=type.__name__),
-            "value": str(value),
-            "stacktrace": format_exc().splitlines(),
-        }
-    else:
-        return None
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            self.value = token_hex()
+        super().save(*args, **kwargs)

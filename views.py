@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import error
+from .data import error
 
 
 def json_response(func):
