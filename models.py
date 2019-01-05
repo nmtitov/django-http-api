@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils.timezone import now
 from secrets import token_hex
 
 
@@ -16,6 +17,9 @@ class Session(models.Model):
         if self._state.adding:
             self.token = token_hex(32)
         super().save(*args, **kwargs)
+
+    def check_in(self):
+        self.used_at = now()
 
     def __str__(self):
         return self.user.email

@@ -6,6 +6,8 @@ class SessionBackend(object):
     def authenticate(self, request, token=None):
         try:
             session = Session.objects.get(token=token)
+            session.check_in()
+            session.save()
             return session.user
         except Session.DoesNotExist:
             return None
