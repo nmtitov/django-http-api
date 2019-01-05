@@ -8,14 +8,14 @@ class Token(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
-    value = models.CharField(max_length=255, editable=False, unique=True)
+    token = models.CharField(max_length=64, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     used_at = models.DateTimeField(blank=True, null=True, editable=False)
 
     def save(self, *args, **kwargs):
         if self._state.adding:
-            self.value = token_hex()
+            self.token = token_hex(32)
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.value
+        return self.token
