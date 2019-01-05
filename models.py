@@ -11,7 +11,7 @@ class Session(models.Model):
     )
     token = models.CharField(max_length=64, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    used_at = models.DateTimeField(blank=True, null=True, editable=False)
+    checked_in_at = models.DateTimeField(blank=True, null=True, editable=False)
 
     def save(self, *args, **kwargs):
         if self._state.adding:
@@ -19,7 +19,7 @@ class Session(models.Model):
         super().save(*args, **kwargs)
 
     def check_in(self):
-        self.used_at = now()
+        self.checked_in_at = now()
 
     def __str__(self):
         return self.user.email
