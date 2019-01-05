@@ -40,6 +40,8 @@ def handler500(request):
 
 def authentication_required(func):
     def decorator(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return func(request, *args, **kwargs)
         token = request.META['HTTP_X_TOKEN']
         user = authenticate(request, token=token)
         if user is not None:
