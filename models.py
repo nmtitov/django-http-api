@@ -11,15 +11,15 @@ class Session(models.Model):
     )
     token = models.CharField(max_length=64, editable=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    checked_in_at = models.DateTimeField(blank=True, null=True, editable=False)
+    last_seen_at = models.DateTimeField(blank=True, null=True, editable=False)
 
     def save(self, *args, **kwargs):
         if self._state.adding:
             self.token = token_hex(32)
         super().save(*args, **kwargs)
 
-    def check_in(self):
-        self.checked_in_at = now()
+    def update_last_seen(self):
+        self.last_seen_at = now()
 
     def __str__(self):
         return self.user.email
