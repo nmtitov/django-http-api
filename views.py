@@ -53,6 +53,11 @@ def handler500(request):
     return error("internal-server-error", error_type="handler500", exception=get_exception(), status=500)
 
 
+@json_response
+def csrf_failure(request, reason):
+    return error("csrf-failure", error_type="csrf_failure", exception=get_exception(), status=403)
+
+
 def authentication_required(func):
     def decorator(request, *args, **kwargs):
         # If a user did login to the admin panel before and has a cookie, let him in (works only in browser)
