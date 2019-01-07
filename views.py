@@ -13,7 +13,7 @@ def json_response(func):
     return decorator
 
 
-# To enable handlers add the following lines to the project urls.py file
+# To enable custom error handlers add the following lines to the project urls.py file
 # handler400 = 'http_api.views.handler400'
 # handler403 = 'http_api.views.handler403'
 # handler404 = 'http_api.views.handler404'
