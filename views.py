@@ -40,7 +40,7 @@ def handler400(request, exception):
 
 @json_response
 def handler403(request, exception):
-    return error("permission denied", error_type="handler403", exception=get_exception(), status=403)
+    return error("permission-denied", error_type="handler403", exception=get_exception(), status=403)
 
 
 @json_response
