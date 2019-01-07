@@ -56,5 +56,5 @@ def handler500(request):
 
 
 @json_response
-def csrf_failure(request, reason):
+def csrf_failure(request, reason=""):
     return error("csrf-failure", error_type="csrf_failure", exception=get_exception(), status=403)
