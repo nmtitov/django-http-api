@@ -19,5 +19,5 @@ def error(name, error_type=None, message=None, exception=None, status=520):
     }
 
 
-def method_not_allowed():
+def error_method_not_allowed():
     return error("method-not-allowed", status=405)
