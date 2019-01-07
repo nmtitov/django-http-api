@@ -1,8 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-from sys import exc_info
-from traceback import format_exc
 from .data import error
+from .helper import get_exception
 
 
 def json_response(func):
@@ -34,19 +33,6 @@ def authentication_required(func):
 # handler403 = 'http_api.views.handler403'
 # handler404 = 'http_api.views.handler404'
 # handler500 = 'http_api.views.handler500'
-
-
-def get_exception():
-    exc_type, value, traceback = exc_info()
-    if exc_type and value and traceback:
-        return {
-            "name": "{module}.{name}".format(module=exc_type.__module__, name=exc_type.__name__),
-            "value": str(value),
-            "repr": repr(value),
-            "stacktrace": format_exc().splitlines(),
-        }
-    else:
-        return None
 
 
 @json_response
