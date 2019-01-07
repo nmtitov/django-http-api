@@ -26,6 +26,7 @@ def get_exception():
         return {
             "name": "{module}.{name}".format(module=exc_type.__module__, name=exc_type.__name__),
             "value": str(value),
+            "repr": repr(value),
             "stacktrace": format_exc().splitlines(),
         }
     else:
