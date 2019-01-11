@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
-from .data import error
+from .data_structures import error
 
 
 def json_response(func):

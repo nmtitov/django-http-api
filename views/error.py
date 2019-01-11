@@ -1,4 +1,4 @@
-from ..data import error
+from ..data_structures import error
 from ..helper import get_exception
 from ..util import json_response
 

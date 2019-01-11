@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.exceptions import SuspiciousOperation
 from django.views.decorators.csrf import csrf_exempt
-from ..data import error, error_method_not_allowed, result
+from ..data_structures import error, error_method_not_allowed, result
 from ..helper import get_exception
 from ..models import Session
 from ..util import authentication_required, json_response
