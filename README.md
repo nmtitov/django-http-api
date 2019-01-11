@@ -36,7 +36,13 @@ INSTALLED_APPS = [
 ]
 ```
 
-2.4. Set `CSRF_FAILURE_VIEW` 
+2.4. Add `http_api.authentication_backend.SessionBackend` to `AUTHENTICATION_BACKENDS`
+
+```
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "http_api.authentication_backend.SessionBackend"]
+```
+
+2.5. Set `CSRF_FAILURE_VIEW`
 
 ```
 CSRF_FAILURE_VIEW = "http_api.views.error.csrf_failure"
