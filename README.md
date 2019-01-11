@@ -12,7 +12,7 @@ Usage
 
 ```
 # Keep Debug = False to make sure we have the same logic in both development and production environments
-# We need to set Debug = False to make custom error handlers defined in your_project.urls.py/http_api.views.error.py work
+# We need to set Debug = False to make custom error handlers defined in your_project.urls.py/django_http_api.views.error.py work
 DEBUG = False
 ```
 
@@ -32,20 +32,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'http_api.apps.HttpApiConfig',
+    'django_http_api.apps.DjangoHttpApiConfig',
 ]
 ```
 
-2.4. Add `http_api.authentication_backend.SessionBackend` to `AUTHENTICATION_BACKENDS`
+2.4. Add `django_http_api.authentication_backend.SessionBackend` to `AUTHENTICATION_BACKENDS`
 
 ```
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "http_api.authentication_backend.SessionBackend"]
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "django_http_api.authentication_backend.SessionBackend"]
 ```
 
 2.5. Set `CSRF_FAILURE_VIEW`
 
 ```
-CSRF_FAILURE_VIEW = "http_api.views.error.csrf_failure"
+CSRF_FAILURE_VIEW = "django_http_api.views.error.csrf_failure"
 ```
 
 3. Define custom error handlers in `your_project.urls.py`
@@ -59,18 +59,18 @@ urlpatterns = [
 ]
 
 # Use custom error handlers
-handler400 = 'http_api.views.error.handler400'
-handler403 = 'http_api.views.error.handler403'
-handler404 = 'http_api.views.error.handler404'
-handler500 = 'http_api.views.error.handler500'
+handler400 = 'django_http_api.views.error.handler400'
+handler403 = 'django_http_api.views.error.handler403'
+handler404 = 'django_http_api.views.error.handler404'
+handler500 = 'django_http_api.views.error.handler500'
 ```
 
 4. Create a custom view in `your_app.views.py`. Here is an example.
 
 ```
 from django.views.decorators.csrf import csrf_exempt
-from http_api.data import result, error, error_method_not_allowed
-from http_api.util import authentication_required, json_response
+from django_http_api.data_structures import result, error, error_method_not_allowed
+from django_http_api.util import authentication_required, json_response
 
 
 @csrf_exempt
