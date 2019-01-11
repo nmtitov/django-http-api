@@ -1,4 +1,4 @@
-HTTP_API app for Django projects
+Django HTTP API
 ===
 
 Usage
