@@ -15,7 +15,8 @@ def signup(request):
         email = str(request.POST["email"])
         password = str(request.POST["password"])
         # Create object
-        obj = User.objects.create_user(email=email, password=password)
+        user_model = get_user_model()
+        obj = user_model.objects.create_user(email=email, password=password)
         # Prepare response
         data = {
             "email": obj.email,
