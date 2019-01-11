@@ -150,3 +150,5 @@ urlpatterns = [
     path('api/', include('your_app.urls')),
 ]
 ```
+
+7. Run local server with `python manage.py runserver --insecure` 
