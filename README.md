@@ -5,7 +5,7 @@ Usage
 ---
 
 
-1. Add files to your project folder as a regular django app
+1. Install `http_api` app from master branch: `pip install git+https://github.com/nmtitov/http_api@master`
 2. Update your project `settings.py`
 
 2.1. Turn off `Debug` if you want to have `JSON` responses everywhere
@@ -157,4 +157,5 @@ urlpatterns = [
 ]
 ```
 
-7. Run local server with `python manage.py runserver --insecure` 
+7. Run local server with `python manage.py runserver --insecure`
+
