@@ -5,7 +5,7 @@ Usage
 ---
 
 
-1. Install `http_api` app from master branch: `pip install git+https://github.com/nmtitov/http_api@master` or add `git+https://github.com/nmtitov/http_api@master#http_api` to your `requirements.txt` file and run `pip install -r requirements.txt`
+1. Install `django-http-api` app from master branch: `pip install git+https://github.com/nmtitov/django-http-api@master` or add `git+https://github.com/nmtitov/django-http-api@master#http_api` to your `requirements.txt` file and run `pip install -r requirements.txt`
 2. Update your project `settings.py`
 
 2.1. Turn off `Debug` if you want to have `JSON` responses everywhere
