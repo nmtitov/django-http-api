@@ -8,14 +8,14 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='http-api',
+    name='django-http-api',
     version='0.1.0',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
     description='A Django app to build an HTTP API without hassle',
     long_description=README,
-    url='https://github.com/nmtitov/http_api',
+    url='https://github.com/nmtitov/django-http-api',
     author='Nikita Titov',
     author_email='nmtitov@ya.ru',
     classifiers=[
