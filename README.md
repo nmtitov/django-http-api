@@ -161,4 +161,4 @@ urlpatterns = [
 
 `python manage.py migrate`
 
-8. Run local server with `python manage.py runserver --insecure`
+8. In order to make `runserver` serve static files for admin panel with `Debug = False`, run local server with `python manage.py runserver --insecure`
