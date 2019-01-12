@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DjangoHttpApiConfig(AppConfig):
-    name = 'django_http_api'
+class HttpApiConfig(AppConfig):
+    name = 'http_api'
     verbose_name = 'HTTP API'
