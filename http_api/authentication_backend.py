@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from .models import Session
 
 
-class SessionBackend(object):
+class SessionBackend:
     def authenticate(self, request, token=None):
         try:
             session = Session.objects.get(token=token)
