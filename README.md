@@ -22,7 +22,7 @@ DEBUG = False
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", ]
 ```
 
-2.3. Add app to `INSTALLED_APPS`
+2.3. Add `http_api` app to `INSTALLED_APPS`
 
 ```
 INSTALLED_APPS = [
@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'http_api.apps.HttpApiConfig',
+    'http_api',
 ]
 ```
 
