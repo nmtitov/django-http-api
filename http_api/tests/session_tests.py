@@ -1,5 +1,5 @@
 import pytest
-from django_http_api.models import Session
+from http_api.models import Session
 
 
 @pytest.mark.django_db
