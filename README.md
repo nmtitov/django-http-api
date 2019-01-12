@@ -157,5 +157,8 @@ urlpatterns = [
 ]
 ```
 
-7. Run local server with `python manage.py runserver --insecure`
+7. Run migrations
 
+`python manage.py migrate`
+
+8. Run local server with `python manage.py runserver --insecure`
