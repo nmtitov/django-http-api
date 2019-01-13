@@ -4,13 +4,12 @@ from ..utils.data_structures import error
 
 
 def json_response(func):
-    def get_status(response_body):
-        try:
-            return response_body.get("status_code")
-        except AttributeError:
-            return None
-
     def decorator(request, *args, **kwargs):
+        def get_status(response_body):
+            try:
+                return response_body.get("status_code")
+            except AttributeError:
+                return None
         response_body = func(request, *args, **kwargs)
         if response_body:
             status = get_status(response_body)
