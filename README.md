@@ -104,14 +104,22 @@ def user(request):
 @json_response
 def clients(request):
     if request.method == "GET":
-        data = [
-            {
-                "first_name": "Nikita",
-                "last_name": "Titov",
-                "email": "nmtitov@ya.ru",
-                "github": "https://github.com/nmtitov",
-            },
-        ]
+        data = [{
+            "first_name": "Nikita",
+            "last_name": "Titov",
+            "email": "nmtitov@ya.ru",
+            "github": "https://github.com/nmtitov",
+        }, {
+            "first_name": "Nikita",
+            "last_name": "Titov",
+            "email": "nmtitov@ya.ru",
+            "github": "https://github.com/nmtitov",
+        }, {
+            "first_name": "Nikita",
+            "last_name": "Titov",
+            "email": "nmtitov@ya.ru",
+            "github": "https://github.com/nmtitov",
+        }]
         return result(data)
     elif request.method == "POST":
         data = {
@@ -121,16 +129,6 @@ def clients(request):
             "github": "https://github.com/nmtitov",
         },
         return result(data, status=201)
-    else:
-        return error_method_not_allowed()
-
-
-@csrf_exempt
-@json_response
-@authentication_required
-def secret(request):
-    if request.method == "GET":
-        return result({"message": "This is my secret"})
     else:
         return error_method_not_allowed()
 ```
