@@ -65,7 +65,7 @@ handler404 = 'http_api.views.error.handler404'
 handler500 = 'http_api.views.error.handler500'
 ```
 
-4. Create a custom view in `your_app.views.py`. Here is an example.
+4. Create a custom view in `your_app.views.py`. Here is an example. See https://github.com/nmtitov/django-http-api/blob/master/sample_project/sample_api/views.py
 
 ```
 from django.views.decorators.csrf import csrf_exempt
