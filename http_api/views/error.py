@@ -1,6 +1,6 @@
-from ..data_structures import error
-from ..helper import get_exception
-from ..util import json_response
+from ..utils.data_structures import error
+from ..utils.decorators import json_response
+from ..utils.exceptions import get_exception
 
 
 # To enable custom error handlers add the following lines to the project urls.py file

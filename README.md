@@ -69,8 +69,8 @@ handler500 = 'http_api.views.error.handler500'
 
 ```
 from django.views.decorators.csrf import csrf_exempt
-from http_api.data import result, error, error_method_not_allowed
-from http_api.util import authentication_required, json_response
+from http_api.utils.data_structures import error, error_method_not_allowed, result
+from http_api.utils.decorators import authentication_required, json_response
 
 
 @csrf_exempt
