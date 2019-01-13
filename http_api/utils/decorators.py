@@ -6,11 +6,11 @@ from ..utils.data_structures import error
 def json_response(func):
     def decorator(request, *args, **kwargs):
         response_body = func(request, *args, **kwargs)
-        if not response_body:
-            return HttpResponse("", status=204, content_type="application/json")
-        else:
+        if response_body:
             status = response_body.get("status_code")
             return JsonResponse(response_body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
+        else:
+            return HttpResponse("", status=204, content_type="application/json")
     return decorator
 
 
