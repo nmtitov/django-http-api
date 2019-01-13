@@ -127,7 +127,7 @@ def clients(request):
             "last_name": "Titov",
             "email": "nmtitov@ya.ru",
             "github": "https://github.com/nmtitov",
-        },
+        }
         return result(data, status=201)
     else:
         return error_method_not_allowed()
