@@ -1,14 +1,16 @@
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from ..utils.data_structures import error
 
 
 def json_response(func):
     def decorator(request, *args, **kwargs):
         body = func(request, *args, **kwargs)
-        status = body.get("status_code") if body else 204
-        params = {"indent": 2, "sort_keys": False} if body else {}
-        return JsonResponse(body, safe=False, status=status, json_dumps_params=params)
+        if not body:
+            return HttpResponse("", status=204, content_type="application/json")
+        else:
+            status = body.get("status_code")
+            return JsonResponse(body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
     return decorator
 
 
