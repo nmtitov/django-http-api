@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from ..utils.data_structures import error
 
 
-def json_response(func):
+def json(func):
     def decorator(request, *args, **kwargs):
         x = func(request, *args, **kwargs)
         if x is None:

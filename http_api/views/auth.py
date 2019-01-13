@@ -2,11 +2,11 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Session
 from ..utils.data_structures import error, error_method_not_allowed, result
-from ..utils.decorators import json_response
+from ..utils.decorators import json
 
 
 @csrf_exempt
-@json_response
+@json
 def signup(request):
     if request.method == "POST":
         # Receive params
@@ -25,7 +25,7 @@ def signup(request):
 
 
 @csrf_exempt
-@json_response
+@json
 def signin(request):
     if request.method == "POST":
         # Receive params

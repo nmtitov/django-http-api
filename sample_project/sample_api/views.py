@@ -1,10 +1,10 @@
 from django.views.decorators.csrf import csrf_exempt
 from http_api.utils.data_structures import error, error_method_not_allowed, result
-from http_api.utils.decorators import authentication_required, json_response
+from http_api.utils.decorators import authentication_required, json
 
 
 @csrf_exempt
-@json_response
+@json
 def index(request):
     if request.method == "GET":
         data = {
@@ -16,7 +16,7 @@ def index(request):
 
 
 @csrf_exempt
-@json_response
+@json
 @authentication_required
 def user(request):
     if request.method == "GET":
@@ -31,7 +31,7 @@ def user(request):
 
 
 @csrf_exempt
-@json_response
+@json
 def clients(request):
     if request.method == "GET":
         data = [{
@@ -64,7 +64,7 @@ def clients(request):
 
 
 @csrf_exempt
-@json_response
+@json
 @authentication_required
 def secret(request):
     if request.method == "GET":
@@ -75,14 +75,14 @@ def secret(request):
 
 # Empty response
 @csrf_exempt
-@json_response
+@json
 def empty(request):
     return None
 
 
 # Empty response with a custom status code
 @csrf_exempt
-@json_response
+@json
 def empty_status(request):
     return {
         "status_code": 404,
@@ -92,7 +92,7 @@ def empty_status(request):
 
 # List response
 @csrf_exempt
-@json_response
+@json
 def greetings(request):
     return [{
         "language": "English",
@@ -117,7 +117,7 @@ def greetings(request):
 
 # A plain dict response with a custom structure (keep in mind that "status_code" and "body" keys are reserved)
 @csrf_exempt
-@json_response
+@json
 def united_states(request):
     return {
         "country": "United States",
