@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'to++%p_p-k1a(f5vv%q_kr6p&a9v@!t!cn9vne0m*66$jmedd+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'http_api',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "http_api.authentication_backend.SessionBackend"]
+CSRF_FAILURE_VIEW = "http_api.views.error.csrf_failure"
