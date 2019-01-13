@@ -1,6 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from http_api.utils.data_structures import error, error_method_not_allowed, result
-from http_api.utils.decorators import authentication_required, json
+from http_api.utils.decorators import auth, json
 
 
 @csrf_exempt
@@ -17,7 +17,7 @@ def index(request):
 
 @csrf_exempt
 @json
-@authentication_required
+@auth
 def user(request):
     if request.method == "GET":
         obj = request.user
@@ -65,7 +65,7 @@ def clients(request):
 
 @csrf_exempt
 @json
-@authentication_required
+@auth
 def secret(request):
     if request.method == "GET":
         return result({"message": "This is my secret"})
