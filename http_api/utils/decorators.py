@@ -5,18 +5,23 @@ from ..utils.data_structures import error
 
 def json_response(func):
     def decorator(request, *args, **kwargs):
-        def get_status(response_body):
-            try:
-                return response_body.get("status_code")
-            except AttributeError:
-                return None
-        response = func(request, *args, **kwargs)
-        if response:
-            status = get_status(response)
-            return JsonResponse(response, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
+        x = func(request, *args, **kwargs)
+        if x is None:
+            return _json_response(None, status=204)
+        elif isinstance(x, dict) and "status_code" in x:
+            status = x.get("status_code", None)
+            body = x.get("body", None)
+            return _json_response(body, status)
         else:
-            return HttpResponse("", status=204, content_type="application/json")
+            return _json_response(x, None)
     return decorator
+
+
+def _json_response(body, status):
+    if body:
+        return JsonResponse(body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
+    else:
+        return HttpResponse("", status=status, content_type="application/json")
 
 
 def authentication_required(func):
