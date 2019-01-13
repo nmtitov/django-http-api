@@ -70,11 +70,11 @@ handler500 = 'http_api.views.error.handler500'
 ```
 from django.views.decorators.csrf import csrf_exempt
 from http_api.utils.data_structures import error, error_method_not_allowed, result
-from http_api.utils.decorators import authentication_required, json_response
+from http_api.utils.decorators import auth, json
 
 
 @csrf_exempt
-@json_response
+@json
 def index(request):
     if request.method == "GET":
         data = {
@@ -86,8 +86,8 @@ def index(request):
 
 
 @csrf_exempt
-@json_response
-@authentication_required
+@json
+@auth
 def user(request):
     if request.method == "GET":
         obj = request.user
@@ -101,7 +101,7 @@ def user(request):
 
 
 @csrf_exempt
-@json_response
+@json
 def clients(request):
     if request.method == "GET":
         data = [{
@@ -129,6 +129,16 @@ def clients(request):
             "github": "https://github.com/nmtitov",
         }
         return result(data, status=201)
+    else:
+        return error_method_not_allowed()
+
+
+@csrf_exempt
+@json
+@auth
+def secret(request):
+    if request.method == "GET":
+        return result({"message": "This is my secret"})
     else:
         return error_method_not_allowed()
 ```
