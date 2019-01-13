@@ -10,10 +10,10 @@ def json_response(func):
                 return response_body.get("status_code")
             except AttributeError:
                 return None
-        response_body = func(request, *args, **kwargs)
-        if response_body:
-            status = get_status(response_body)
-            return JsonResponse(response_body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
+        response = func(request, *args, **kwargs)
+        if response:
+            status = get_status(response)
+            return JsonResponse(response, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
         else:
             return HttpResponse("", status=204, content_type="application/json")
     return decorator
