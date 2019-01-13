@@ -6,7 +6,7 @@ from ..utils.data_structures import error
 def json_response(func):
     def decorator(request, *args, **kwargs):
         body = func(request, *args, **kwargs)
-        status = body.get("status_code", 200)
+        status = body.get("status_code") if body else 204
         return JsonResponse(body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
     return decorator
 
