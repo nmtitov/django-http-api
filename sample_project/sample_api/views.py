@@ -1,7 +1,8 @@
+from django.core.exceptions import SuspiciousOperation
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_safe
 
-from http_api.utils.data_structures import error_method_not_allowed, result
+from http_api.utils.data_structures import error, result
 from http_api.utils.decorators import auth, json
 
 
@@ -26,6 +27,20 @@ def user(request):
         "email": email,
     }
     return result(data)
+
+
+@csrf_exempt
+@require_safe
+@json
+def sample_error(request):
+    return error("sample-error", error_type="sample_error", message="This is an example of erroneous response with a custom status code", status=520)
+
+
+@csrf_exempt
+@require_safe
+@json
+def sample_exception(request):
+    raise SuspiciousOperation("sample_exception")
 
 
 @csrf_exempt
