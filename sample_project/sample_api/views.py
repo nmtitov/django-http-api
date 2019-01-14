@@ -1,40 +1,38 @@
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods, require_safe
 
 from http_api.utils.data_structures import error_method_not_allowed, result
 from http_api.utils.decorators import auth, json
 
 
 @csrf_exempt
+@require_safe
 @json
 def index(request):
-    if request.method == "GET":
-        data = {
-            "message": "It works!",
-        }
-        return result(data)
-    else:
-        return error_method_not_allowed()
+    return result({
+        "message": "It works!",
+    })
 
 
 @csrf_exempt
+@require_safe
 @json
 @auth
 def user(request):
-    if request.method == "GET":
-        obj = request.user
-        # Prepare response
-        data = {
-            "email": obj.email,
-        }
-        return result(data)
-    else:
-        return error_method_not_allowed()
+    obj = request.user
+    # Prepare response
+    email = obj.email if obj.email else None
+    data = {
+        "email": email,
+    }
+    return result(data)
 
 
 @csrf_exempt
+@require_http_methods(["GET", "HEAD", "POST"])
 @json
 def clients(request):
-    if request.method == "GET":
+    if request.method == "GET" or request.method == "HEAD":
         data = [{
             "first_name": "Nikita",
             "last_name": "Titov",
@@ -61,17 +59,15 @@ def clients(request):
         }
         return result(data, status=201)
     else:
-        return error_method_not_allowed()
+        return None
 
 
 @csrf_exempt
+@require_safe
 @json
 @auth
 def secret(request):
-    if request.method == "GET":
-        return result({"message": "This is my secret"})
-    else:
-        return error_method_not_allowed()
+    return result({"message": "This is my secret"})
 
 
 # Empty response
@@ -93,6 +89,7 @@ def empty_status(request):
 
 # List response
 @csrf_exempt
+@require_safe
 @json
 def greetings(request):
     return [{
@@ -118,6 +115,7 @@ def greetings(request):
 
 # A plain dict response with a custom structure (keep in mind that "status_code" and "body" keys are reserved)
 @csrf_exempt
+@require_safe
 @json
 def united_states(request):
     return {
