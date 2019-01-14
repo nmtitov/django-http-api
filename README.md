@@ -68,42 +68,56 @@ handler500 = 'http_api.views.error.handler500'
 4. Create a custom view in `your_app.views.py`. Here is an example. See https://github.com/nmtitov/django-http-api/blob/master/sample_project/sample_api/views.py
 
 ```
+from django.core.exceptions import SuspiciousOperation
 from django.views.decorators.csrf import csrf_exempt
-from http_api.utils.data_structures import error, error_method_not_allowed, result
+from django.views.decorators.http import require_http_methods, require_safe
+
+from http_api.utils.data_structures import error, result
 from http_api.utils.decorators import auth, json
 
 
 @csrf_exempt
+@require_safe
 @json
 def index(request):
-    if request.method == "GET":
-        data = {
-            "message": "It works!",
-        }
-        return result(data)
-    else:
-        return error_method_not_allowed()
+    return result({
+        "message": "It works!",
+    })
 
 
 @csrf_exempt
+@require_safe
 @json
 @auth
 def user(request):
-    if request.method == "GET":
-        obj = request.user
-        # Prepare response
-        data = {
-            "email": obj.email,
-        }
-        return result(data)
-    else:
-        return error_method_not_allowed()
+    obj = request.user
+    # Prepare response
+    email = obj.email if obj.email else None
+    data = {
+        "email": email,
+    }
+    return result(data)
 
 
 @csrf_exempt
+@require_safe
+@json
+def sample_error(request):
+    return error("sample-error", error_type="sample_error", message="This is an example of erroneous response with a custom status code", status=520)
+
+
+@csrf_exempt
+@require_safe
+@json
+def sample_exception(request):
+    raise SuspiciousOperation("sample_exception")
+
+
+@csrf_exempt
+@require_http_methods(["GET", "HEAD", "POST"])
 @json
 def clients(request):
-    if request.method == "GET":
+    if request.method == "GET" or request.method == "HEAD":
         data = [{
             "first_name": "Nikita",
             "last_name": "Titov",
@@ -130,17 +144,73 @@ def clients(request):
         }
         return result(data, status=201)
     else:
-        return error_method_not_allowed()
+        return None
 
 
 @csrf_exempt
+@require_safe
 @json
 @auth
 def secret(request):
-    if request.method == "GET":
-        return result({"message": "This is my secret"})
-    else:
-        return error_method_not_allowed()
+    return result({"message": "This is my secret"})
+
+
+# Empty response
+@csrf_exempt
+@json
+def empty(request):
+    return None
+
+
+# Empty response with a custom status code
+@csrf_exempt
+@json
+def empty_status(request):
+    return {
+        "status_code": 404,
+        "body": None,
+    }
+
+
+# List response
+@csrf_exempt
+@require_safe
+@json
+def greetings(request):
+    return [{
+        "language": "English",
+        "greeting": "Hello",
+    }, {
+        "language": "French",
+        "greeting": "Bonjour",
+    }, {
+        "language": "Spanish",
+        "greeting": "Hola",
+    }, {
+        "language": "German",
+        "greeting": "Hallo",
+    }, {
+        "language": "Italian",
+        "greeting": "Ciao",
+    }, {
+        "language": "Portugese",
+        "greeting": "Ola",
+    }]
+
+
+# A plain dict response with a custom structure (keep in mind that "status_code" and "body" keys are reserved)
+@csrf_exempt
+@require_safe
+@json
+def united_states(request):
+    return {
+        "country": "United States",
+        "capital": "Washington, D.C.",
+        "largest_city": "New York City",
+        "national_language": "English",
+        "area": "9833520",
+    }
+
 ```
 
 5. Add url paths to your views in `your_app.urls.py`
