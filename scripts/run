@@ -1,0 +1,3 @@
+#!/bin/sh
+./sample_project/manage.py runserver --insecure
+
