@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.views.decorators.csrf import csrf_exempt
+
 from ..models import Session
 from ..utils.data_structures import error, error_method_not_allowed, result
 from ..utils.decorators import json

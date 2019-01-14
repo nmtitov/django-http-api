@@ -1,6 +1,8 @@
+from functools import wraps
+
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
-from functools import wraps
+
 from ..utils.data_structures import error
 
 

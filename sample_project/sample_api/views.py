@@ -1,5 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
-from http_api.utils.data_structures import error, error_method_not_allowed, result
+
+from http_api.utils.data_structures import error_method_not_allowed, result
 from http_api.utils.decorators import auth, json
 
 

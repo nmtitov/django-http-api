@@ -1,7 +1,8 @@
+from secrets import token_hex
+
 from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
-from secrets import token_hex
 
 
 class Session(models.Model):

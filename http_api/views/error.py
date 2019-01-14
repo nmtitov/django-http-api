@@ -2,7 +2,6 @@ from ..utils.data_structures import error
 from ..utils.decorators import json
 from ..utils.exceptions import get_exception
 
-
 # To enable custom error handlers add the following lines to the project urls.py file
 # handler400 = 'http_api.views.error.handler400'
 # handler403 = 'http_api.views.error.handler403'
