@@ -9,15 +9,15 @@ from ..utils.data_structures import error
 def json(func):
     @wraps(func)
     def decorator(request, *args, **kwargs):
-        x = func(request, *args, **kwargs)
-        if x is None:
+        view_result = func(request, *args, **kwargs)
+        if view_result is None:
             return _json_response(None, status=204)
-        elif isinstance(x, dict) and "status_code" in x:
-            status = x.get("status_code", None)
-            body = x.get("body", None)
+        elif isinstance(view_result, dict) and "status_code" in view_result:
+            status = view_result.get("status_code", None)
+            body = view_result.get("body", None)
             return _json_response(body, status)
         else:
-            return _json_response(x, None)
+            return _json_response(view_result, None)
     return decorator
 
 
