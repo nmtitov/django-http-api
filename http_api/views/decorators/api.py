@@ -3,7 +3,7 @@ from functools import wraps
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
 
-from ..utils.data_structures import error
+from http_api.utils.data_structures import error
 
 
 def json(func):

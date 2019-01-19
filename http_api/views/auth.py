@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ..models import Session
 from ..utils.data_structures import error, error_method_not_allowed, result
-from ..utils.decorators import json
+from http_api.views.decorators.api import json
 
 
 @csrf_exempt
