@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_safe
 
 from http_api.utils.data_structures import error, result
-from http_api.utils.decorators import auth, json
+from http_api.utils.decorators import require_auth, json
 
 
 @csrf_exempt
@@ -18,7 +18,7 @@ def index(request):
 @csrf_exempt
 @require_safe
 @json
-@auth
+@require_auth
 def user(request):
     obj = request.user
     # Prepare response
@@ -80,7 +80,7 @@ def clients(request):
 @csrf_exempt
 @require_safe
 @json
-@auth
+@require_auth
 def secret(request):
     return result({"message": "This is my secret"})
 

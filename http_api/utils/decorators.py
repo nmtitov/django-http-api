@@ -28,7 +28,7 @@ def _json_response(body, status):
         return HttpResponse("", status=status, content_type="application/json")
 
 
-def auth(func):
+def require_auth(func):
     @wraps(func)
     def decorator(request, *args, **kwargs):
         # If a user did login to the admin panel before and has a cookie, let him in (works only in browser)
