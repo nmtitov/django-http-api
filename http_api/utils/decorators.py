@@ -12,7 +12,7 @@ def json(func):
         view_result = func(request, *args, **kwargs)
         if view_result is None:
             return _json_response(None, status=204)
-        elif isinstance(view_result, dict) and "status_code" in view_result:
+        elif isinstance(view_result, dict) and "status_code" in view_result and "body" in view_result:
             status = view_result.get("status_code", None)
             body = view_result.get("body", None)
             return _json_response(body, status)
