@@ -12,6 +12,7 @@ def json(func):
         view_result = func(request, *args, **kwargs)
         if view_result is None:
             return _json_response(None, status=204)
+        # if view_result is {"status_code": Any, "body": Any}
         elif isinstance(view_result, dict) and "status_code" in view_result and "body" in view_result:
             status = view_result.get("status_code", None)
             body = view_result.get("body", None)
@@ -22,8 +23,11 @@ def json(func):
 
 
 def _json_response(body, status):
+    # If `body` is an object, let `JsonResponse` convert it to JSON
     if body:
         return JsonResponse(body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
+    # Otherwise create an empty response without a body
+    # `JsonResponse` produces four whitespaces if None is passed as an arg so we have to use `HttpResponse` with ""
     else:
         return HttpResponse("", status=status, content_type="application/json")
 
