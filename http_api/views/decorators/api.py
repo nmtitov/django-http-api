@@ -6,7 +6,7 @@ from django.http import HttpResponse, JsonResponse
 from http_api.utils.data_structures import error
 
 
-def json(func):
+def jsonify(func):
     @wraps(func)
     def decorator(request, *args, **kwargs):
         view_result = func(request, *args, **kwargs)

@@ -4,12 +4,12 @@ from django.views.decorators.http import require_POST
 
 from ..models import Session
 from ..utils.data_structures import error, result
-from ..views.decorators.api import json
+from ..views.decorators.api import jsonify
 
 
 @csrf_exempt
 @require_POST
-@json
+@jsonify
 def signup(request):
     # Receive params
     email = str(request.POST["email"])
@@ -26,7 +26,7 @@ def signup(request):
 
 @csrf_exempt
 @require_POST
-@json
+@jsonify
 def signin(request):
     # Receive params
     email = str(request.POST["email"])
