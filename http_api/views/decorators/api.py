@@ -8,6 +8,10 @@ from http_api.utils.data_structures import error
 
 
 def jsonify(func):
+    def _json_response(body, status):
+        response_body = "" if not body else dumps(body, ensure_ascii=False, indent=2, sort_keys=False)
+        return HttpResponse(response_body, status=status, content_type="application/json")
+
     @wraps(func)
     def decorator(request, *args, **kwargs):
         view_result = func(request, *args, **kwargs)
@@ -21,11 +25,6 @@ def jsonify(func):
         else:
             return _json_response(view_result, None)
     return decorator
-
-
-def _json_response(body, status):
-    response_body = "" if not body else dumps(body, ensure_ascii=False, indent=2, sort_keys=False)
-    return HttpResponse(response_body, status=status, content_type="application/json")
 
 
 def require_auth(func):
