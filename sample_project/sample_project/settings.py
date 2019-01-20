@@ -121,5 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "http_api.authentication_backend.SessionBackend"]
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', "http_api.backends.SessionBackend"]
 CSRF_FAILURE_VIEW = "http_api.views.error.csrf_failure"
