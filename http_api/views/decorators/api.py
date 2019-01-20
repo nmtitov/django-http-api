@@ -1,7 +1,8 @@
 from functools import wraps
+from json import dumps
 
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 
 from http_api.utils.data_structures import error
 
@@ -23,13 +24,8 @@ def jsonify(func):
 
 
 def _json_response(body, status):
-    # If `body` is an object, let `JsonResponse` convert it to JSON
-    if body:
-        return JsonResponse(body, safe=False, status=status, json_dumps_params={"indent": 2, "sort_keys": False})
-    # Otherwise create an empty response without a body
-    # `JsonResponse` produces four whitespaces if None is passed as an arg so we have to use `HttpResponse` with ""
-    else:
-        return HttpResponse("", status=status, content_type="application/json")
+    response_body = "" if not body else dumps(body, ensure_ascii=False, indent=2, sort_keys=False)
+    return HttpResponse(response_body, status=status, content_type="application/json")
 
 
 def require_auth(func):
