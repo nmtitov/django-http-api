@@ -73,7 +73,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods, require_safe
 
 from http_api.utils.data_structures import error, result
-from http_api.views.decorators.api import require_auth, json
+from http_api.views.decorators.api import jsonify, pagify, require_auth
 
 
 @csrf_exempt
@@ -172,10 +172,11 @@ def empty_status(request):
     }
 
 
-# List response
+# List response with pagination
 @csrf_exempt
 @require_safe
 @jsonify
+@pagify
 def greetings(request):
     return [{
         "language": "English",

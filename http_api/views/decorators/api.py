@@ -50,15 +50,15 @@ def pager(per_page=10):
     def decorator(func):
         @wraps(func)
         def _decorator(request, *args, **kwargs):
-            seq = func(request, *args, **kwargs)
+            objects = func(request, *args, **kwargs)
             try:
-                current_page = request.GET.get('page', 1)
-                paginator = Paginator(seq, per_page=per_page)
-                objects = paginator.get_page(current_page)
-                page = paginator.page(current_page)
+                page_num = request.GET.get('page', 1)
+                p = Paginator(objects, per_page)
+                page = p.page(page_num)
+                objects = page.object_list
                 return result({
                     "pager": {
-                        "total": paginator.num_pages,
+                        "total": p.num_pages,
                         "next": page.next_page_number() if page.has_next() else None,
                         "previous": page.previous_page_number() if page.has_previous() else None,
                     },
