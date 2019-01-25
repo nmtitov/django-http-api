@@ -24,7 +24,7 @@ def error(name, error_type=None, message=None, exception_info=None, status=520):
     }
 
 
-def pager(objects, per_page=10, fn=None, current_page=1):
+def pager(objects, fn=None, per_page=10, current_page=1):
     paginator = Paginator(objects, per_page)
     page_objects = paginator.get_page(current_page)
     page = paginator.page(current_page)
