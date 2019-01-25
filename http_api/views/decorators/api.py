@@ -52,7 +52,7 @@ def pagify(per_page=10, fn=None):
             seq = func(request, *args, **kwargs)
             try:
                 current_page = request.GET.get('page', 1)
-                paginator = Paginator(seq)
+                paginator = Paginator(seq, per_page=per_page)
                 objects = paginator.get_page(current_page)
                 page = paginator.page(current_page)
                 return result({
