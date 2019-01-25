@@ -38,7 +38,7 @@ def require_auth(func):
         else:
             token = request.META['HTTP_X_TOKEN']  # curl -i http://localhost:8000/api/ --header "X-Token: 000"
             user = authenticate(request, token=token)
-            if user is not None:
+            if user:
                 login(request, user)
                 return func(request, *args, **kwargs)
             else:
