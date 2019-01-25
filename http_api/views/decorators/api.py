@@ -46,7 +46,7 @@ def require_auth(func):
     return decorator
 
 
-def pagify(per_page=10):
+def pager(per_page=10):
     def decorator(func):
         @wraps(func)
         def _decorator(request, *args, **kwargs):
@@ -68,3 +68,6 @@ def pagify(per_page=10):
                 return error("empty-page", error_type="pager", message="The requested page is empty", exception_info=None, status=404)
         return _decorator
     return decorator
+
+
+pagify = pager(10)
