@@ -35,7 +35,7 @@ def signin(request):
     user_model = get_user_model()
     user = user_model.objects.get(email=email)
     if not user.check_password(password):
-        return error("Invalid password", error_type="check_password", message="Password is invalid", status=400)
+        return error("Invalid password", error_type="check_password", display_message="Password is invalid", status=400)
     # Create session object
     session = Session.objects.create(user=user)
     # Prepare response

@@ -42,7 +42,7 @@ def require_auth(func):
                 login(request, user)
                 return func(request, *args, **kwargs)
             else:
-                return error("Authentication required", error_type="authentication", message="You need to sign in to access this page", status=403)
+                return error("Authentication required", error_type="authentication", display_message="You need to sign in to access this page", status=403)
     return decorator
 
 
@@ -65,7 +65,7 @@ def pager(per_page=10):
                     "items": list(map(methodcaller('__dump__'), objects)) if all(hasattr(obj, '__dump__') for obj in objects) else objects
                 })
             except EmptyPage:
-                return error("empty-page", error_type="pager", message="The requested page is empty", exception_info=None, status=404)
+                return error("empty-page", error_type="pager", display_message="The requested page is empty", exception_info=None, status=404)
         return _decorator
     return decorator
 

@@ -33,7 +33,7 @@ def user(request):
 @require_safe
 @jsonify
 def sample_error(request):
-    return error("sample-error", error_type="sample_error", message="This is an example of erroneous response with a custom status code", status=520)
+    return error("sample-error", error_type="sample_error", display_message="This is an example of erroneous response with a custom status code", status=520)
 
 
 @csrf_exempt
