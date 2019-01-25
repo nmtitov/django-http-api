@@ -1,5 +1,6 @@
 atomicwrites==1.2.1
 attrs==18.2.0
+decorator==4.3.2
 Django==2.1.5
 django-extensions==2.1.4
 frosted==1.4.1
