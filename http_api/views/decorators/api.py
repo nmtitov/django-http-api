@@ -42,7 +42,7 @@ def require_auth(func):
                 login(request, user)
                 return func(request, *args, **kwargs)
             else:
-                return error("Authentication required", error_type="authentication", status=403)
+                return error("Authentication required", error_type="authentication", message="You need to sign in to access this page", status=403)
     return decorator
 
 
