@@ -11,7 +11,7 @@ from http_api.utils.data_structures import error, result
 
 def jsonify(func):
     def _json_response(body, status):
-        response_body = "" if not body else dumps(body, ensure_ascii=False, indent=2, sort_keys=False)
+        response_body = dumps(body, ensure_ascii=False, indent=2, sort_keys=False) if body else ""
         return HttpResponse(response_body, status=status, content_type="application/json")
 
     @wraps(func)
