@@ -62,7 +62,7 @@ def pager(per_page=10):
                         "next": page.next_page_number() if page.has_next() else None,
                         "previous": page.previous_page_number() if page.has_previous() else None,
                     },
-                    "items": list(map(methodcaller('__dump__'), objects)) if all(hasattr(obj, '__dump__') for obj in objects) else objects
+                    "objects": list(map(methodcaller('__dump__'), objects)) if all(hasattr(obj, '__dump__') for obj in objects) else objects
                 })
             except EmptyPage:
                 return error("empty-page", error_type="pager", display_message="The requested page is empty", exception_info=None, status=404)
