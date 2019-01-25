@@ -2,9 +2,10 @@ from functools import wraps
 from json import dumps
 
 from django.contrib.auth import authenticate, login
+from django.core.paginator import EmptyPage, Paginator
 from django.http import HttpResponse
 
-from http_api.utils.data_structures import error
+from http_api.utils.data_structures import error, result
 
 
 def jsonify(func):
@@ -41,4 +42,28 @@ def require_auth(func):
                 return func(request, *args, **kwargs)
             else:
                 return error("Authentication required", error_type="authentication", status=403)
+    return decorator
+
+
+def pagify(per_page=10, fn=None):
+    def decorator(func):
+        @wraps(func)
+        def _decorator(request, *args, **kwargs):
+            seq = func(request, *args, **kwargs)
+            try:
+                current_page = request.GET.get('page', 1)
+                paginator = Paginator(seq)
+                objects = paginator.get_page(current_page)
+                page = paginator.page(current_page)
+                return result({
+                    "pager": {
+                        "total": paginator.num_pages,
+                        "next": page.next_page_number() if page.has_next() else None,
+                        "previous": page.previous_page_number() if page.has_previous() else None,
+                    },
+                    "items": list(map(fn, objects)) if fn else objects
+                })
+            except EmptyPage:
+                return error("empty-page", error_type="pager", message="The requested page is empty", exception_info=None, status=404)
+        return _decorator
     return decorator
