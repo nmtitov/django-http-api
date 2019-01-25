@@ -1,5 +1,6 @@
 from functools import wraps
 from json import dumps
+from operator import methodcaller
 
 from django.contrib.auth import authenticate, login
 from django.core.paginator import EmptyPage, Paginator
@@ -45,7 +46,7 @@ def require_auth(func):
     return decorator
 
 
-def pagify(per_page=10, fn=None):
+def pagify(per_page=10):
     def decorator(func):
         @wraps(func)
         def _decorator(request, *args, **kwargs):
@@ -61,7 +62,7 @@ def pagify(per_page=10, fn=None):
                         "next": page.next_page_number() if page.has_next() else None,
                         "previous": page.previous_page_number() if page.has_previous() else None,
                     },
-                    "items": list(map(fn, objects)) if fn else objects
+                    "items": list(map(methodcaller('__dump__'), objects)) if all(hasattr(obj, '__dump__') for obj in objects) else objects
                 })
             except EmptyPage:
                 return error("empty-page", error_type="pager", message="The requested page is empty", exception_info=None, status=404)
