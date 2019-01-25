@@ -32,7 +32,7 @@ def jsonify(func):
 def require_auth(func):
     @wraps(func)
     def decorator(request, *args, **kwargs):
-        # If a user did login to the admin panel before and has a cookie, let him in (works only in browser)
+        # If a user did login to the admin panel before and has a cookie, let him in (useful in browser)
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
         else:
