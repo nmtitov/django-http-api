@@ -34,5 +34,5 @@ def pager(objects, fn=None, per_page=10, current_page=1):
             "next": page.next_page_number() if page.has_next() else None,
             "previous": page.previous_page_number() if page.has_previous() else None,
         },
-        "items": list(map(fn, page_objects))
+        "items": list(map(fn, page_objects)) if fn else page_objects
     }
