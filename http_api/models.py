@@ -23,4 +23,4 @@ class Session(models.Model):
         self.last_seen_at = now()
 
     def __str__(self):
-        return self.user.username
+        return getattr(self.user, self.user.USERNAME_FIELD)
