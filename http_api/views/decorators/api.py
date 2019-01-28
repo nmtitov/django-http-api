@@ -49,10 +49,15 @@ def pager(per_page=10):
     def decorator(func):
         @wraps(func)
         def _decorator(request, *args, **kwargs):
-            objects = func(request, *args, **kwargs)
+            value = func(request, *args, **kwargs)
+            try:
+                if value['body']['error']:
+                    return value
+            except KeyError:
+                pass
             try:
                 page_num = request.GET.get('page', 1)
-                p = Paginator(objects, per_page)
+                p = Paginator(value, per_page)
                 page = p.page(page_num)
                 objects = page.object_list
                 return result({
