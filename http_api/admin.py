@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from .models import Session
 
 user_model = get_user_model()
-username_field = "user__{username_field}".format(username_field=user_model.USERNAME_FIELD)
+username_field = f"user__{user_model.USERNAME_FIELD}"
 
 
 @admin.register(Session)
