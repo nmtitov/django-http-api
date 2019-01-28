@@ -44,6 +44,7 @@ def require_auth(func):
                 return error("Authentication required", error_type="authentication", display_message="You need to sign in to access this page", status=403)
     return decorator
 
+
 def pager(per_page=10):
     def decorator(func):
         @wraps(func)
