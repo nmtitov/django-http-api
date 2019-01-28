@@ -53,7 +53,7 @@ def pager(per_page=10):
             try:
                 if value['body']['error']:
                     return value
-            except KeyError:
+            except (KeyError, TypeError):
                 pass
             try:
                 page_num = request.GET.get('page', 1)
