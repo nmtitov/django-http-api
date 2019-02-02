@@ -10,6 +10,6 @@ username_field = f"user__{user_model.USERNAME_FIELD}"
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
     list_filter = (username_field, )
-    ordering = ["created_at"]
+    ordering = ["-created_at"]
     readonly_fields = ("token", "created_at", "last_seen_at", )
     search_fields = [username_field]
