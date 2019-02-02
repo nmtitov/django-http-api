@@ -9,22 +9,22 @@ from http_api.utils.data_structures import error, result
 
 
 def jsonify(func):
-    def _json_response(body, status):
+    def json_response(body, status):
         response_body = dumps(body, ensure_ascii=False, indent=2, sort_keys=False) if body else ""
         return HttpResponse(response_body, status=status, content_type="application/json")
 
     @wraps(func)
     def decorator(request, *args, **kwargs):
-        view_result = func(request, *args, **kwargs)
-        if view_result is None:
-            return _json_response(None, status=204)
+        view = func(request, *args, **kwargs)
+        if view is None:
+            return json_response(None, status=204)
         # if view_result is {"status_code": Any, "body": Any}
-        elif isinstance(view_result, dict) and "status_code" in view_result and "body" in view_result:
-            status = view_result.get("status_code", None)
-            body = view_result.get("body", None)
-            return _json_response(body, status)
+        elif isinstance(view, dict) and "status_code" in view and "body" in view:
+            status = view["status_code"]
+            body = view["body"]
+            return json_response(body, status)
         else:
-            return _json_response(view_result, None)
+            return json_response(view, None)
     return decorator
 
 
