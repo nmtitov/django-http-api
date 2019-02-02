@@ -6,6 +6,7 @@ from django.core.paginator import EmptyPage, Paginator
 from django.http import HttpResponse
 
 from http_api.utils.data_structures import error, result
+from django.core.exceptions import PermissionDenied
 
 
 def jsonify(func):
@@ -41,7 +42,7 @@ def require_auth(func):
                 login(request, user)
                 return func(request, *args, **kwargs)
             else:
-                return error("Authentication required", error_type="authentication", display_message="You need to sign in to access this page", status=403)
+                raise PermissionDenied()
     return decorator
 
 
@@ -49,27 +50,19 @@ def pager(per_page=10):
     def decorator(func):
         @wraps(func)
         def _decorator(request, *args, **kwargs):
-            value = func(request, *args, **kwargs)
-            try:
-                if value['body']['error']:
-                    return value
-            except (KeyError, TypeError):
-                pass
-            try:
-                page_num = request.GET.get('page', 1)
-                p = Paginator(value, per_page)
-                page = p.page(page_num)
-                objects = page.object_list
-                return result({
-                    "pager": {
-                        "total": p.num_pages,
-                        "next": page.next_page_number() if page.has_next() else None,
-                        "previous": page.previous_page_number() if page.has_previous() else None,
-                    },
-                    "objects": list(map(lambda x: x.__dump__ if hasattr(x, "__dump__") else x, objects))
-                })
-            except EmptyPage:
-                return error("empty-page", error_type="pager", display_message="The requested page is empty", exception_info=None, status=404)
+            view = func(request, *args, **kwargs)
+            paginator = Paginator(view, per_page)
+            page_num = request.GET.get('page', 1)
+            page = paginator.page(page_num)
+            objects = page.object_list
+            return result({
+                "pager": {
+                    "total": paginator.num_pages,
+                    "next": page.next_page_number() if page.has_next() else None,
+                    "previous": page.previous_page_number() if page.has_previous() else None,
+                },
+                "objects": list(map(lambda x: x.__dump__ if hasattr(x, "__dump__") else x, objects))
+            })
         return _decorator
     return decorator
 
