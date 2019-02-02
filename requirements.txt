@@ -2,10 +2,8 @@ atomicwrites==1.2.1
 attrs==18.2.0
 Django==2.1.5
 django-extensions==2.1.4
-frosted==1.4.1
 isort==4.3.4
 more-itertools==5.0.0
-pies==2.6.7
 pluggy==0.8.1
 py==1.7.0
 pytest==4.1.0
