@@ -2,11 +2,10 @@ from functools import wraps
 from json import dumps
 
 from django.contrib.auth import authenticate, login
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, Paginator
 from django.http import HttpResponse
-
 from http_api.utils.data_structures import error, result
-from django.core.exceptions import PermissionDenied
 
 
 def jsonify(func):
