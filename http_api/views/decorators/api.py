@@ -18,11 +18,9 @@ def jsonify(func):
         view = func(request, *args, **kwargs)
         if view is None:
             return json_response(None, status=204)
-        # if view_result is {"status_code": Any, "body": Any}
-        elif isinstance(view, dict) and "status_code" in view and "body" in view:
-            status = view["status_code"]
-            body = view["body"]
-            return json_response(body, status)
+        elif isinstance(view, dict):
+            status = view.get("status_code")
+            return json_response(view, status)
         else:
             return json_response(view, None)
     return decorator
