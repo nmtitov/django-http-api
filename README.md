@@ -16,6 +16,29 @@ Usage
 DEBUG = False
 ```
 
+Then set `TEMPLATES.OPTIONS.debug` to `True`. Don't forget to set this value to `False` on production.
+
+`TEMPLATES` should look like this:
+
+```
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'debug': True, # automatically reload templates when template file is modified
+        },
+    },
+]
+```
+
 2.2. Add hosts to `ALLOWED_HOSTS`
 
 ```
