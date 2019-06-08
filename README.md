@@ -8,7 +8,7 @@ Usage
 1. Install `django-http-api` app from master branch: `pip install git+https://github.com/nmtitov/django-http-api@master` or add `-e git+https://github.com/nmtitov/django-http-api@master#egg=django-http-api` to your `requirements.txt` file and run `pip install -r requirements.txt`
 2. Update your project `settings.py`
 
-2.1. Turn off `Debug` if you want to have `JSON` responses everywhere
+2.1. Best practices: turn off `Debug` to make our custom error handlers work and get `JSON` responses everywhere
 
 ```
 # Keep Debug = False to make sure we have the same logic in both development and production environments
