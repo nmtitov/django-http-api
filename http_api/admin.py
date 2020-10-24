@@ -9,6 +9,7 @@ username_field = f"user__{get_user_model().USERNAME_FIELD}"
 @admin.register(Session)
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("id", "__str__", "created_at", "last_seen_at", )
+    list_display_links = ("id", "__str__", )
     list_filter = ("created_at", "last_seen_at", )
     ordering = ["-created_at"]
     readonly_fields = ("id", "token", "created_at", "last_seen_at", )
