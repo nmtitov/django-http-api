@@ -1,0 +1,4 @@
+#!/bin/bash
+./scripts/sort_imports
+black .
+
