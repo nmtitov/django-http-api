@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import EmptyPage, Paginator
 from django.http import HttpResponse
-
 from http_api.utils.data_structures import error, result
 
 
@@ -64,6 +63,7 @@ def pager(per_page=10):
             return result(
                 {
                     "pager": {
+                        "count": paginator.count,
                         "total": paginator.num_pages,
                         "next": page.next_page_number() if page.has_next() else None,
                         "previous": page.previous_page_number()
