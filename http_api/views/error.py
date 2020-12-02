@@ -11,24 +11,49 @@ from ..views.decorators.api import jsonify
 
 @jsonify
 def handler400(request, exception):
-    return error("client-error", error_type="handler400", exception_info=get_exception_info(), status=400)
+    return error(
+        "client-error",
+        error_type="handler400",
+        exception_info=get_exception_info(),
+        status=400,
+    )
 
 
 @jsonify
 def handler403(request, exception):
-    return error("permission-denied", error_type="handler403", exception_info=get_exception_info(), status=403)
+    return error(
+        "permission-denied",
+        error_type="handler403",
+        exception_info=get_exception_info(),
+        status=403,
+    )
 
 
 @jsonify
 def handler404(request, exception):
-    return error("not-found", error_type="handler404", exception_info=get_exception_info(), status=404)
+    return error(
+        "not-found",
+        error_type="handler404",
+        exception_info=get_exception_info(),
+        status=404,
+    )
 
 
 @jsonify
 def handler500(request):
-    return error("internal-server-error", error_type="handler500", exception_info=get_exception_info(), status=500)
+    return error(
+        "internal-server-error",
+        error_type="handler500",
+        exception_info=get_exception_info(),
+        status=500,
+    )
 
 
 @jsonify
 def csrf_failure(request, reason=""):
-    return error("csrf-failure", error_type="csrf_failure", exception_info=get_exception_info(), status=403)
+    return error(
+        "csrf-failure",
+        error_type="csrf_failure",
+        exception_info=get_exception_info(),
+        status=403,
+    )

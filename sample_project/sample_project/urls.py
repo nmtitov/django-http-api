@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('sample_api.urls')),
+    path("admin/", admin.site.urls),
+    path("api/", include("sample_api.urls")),
 ]
 
 # Use custom error handlers
-handler400 = 'http_api.views.error.handler400'
-handler403 = 'http_api.views.error.handler403'
-handler404 = 'http_api.views.error.handler404'
-handler500 = 'http_api.views.error.handler500'
+handler400 = "http_api.views.error.handler400"
+handler403 = "http_api.views.error.handler403"
+handler404 = "http_api.views.error.handler404"
+handler500 = "http_api.views.error.handler500"

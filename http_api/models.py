@@ -3,9 +3,9 @@ try:
 except ImportError:
     from os import urandom
 
-
     def token_hex(nbytes=None):
         return urandom(nbytes).hex()
+
 
 from django.conf import settings
 from django.db import models

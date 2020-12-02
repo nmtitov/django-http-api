@@ -10,9 +10,11 @@ from http_api.views.decorators.api import jsonify, pagify, require_auth
 @require_safe
 @jsonify
 def index(request):
-    return result({
-        "message": "It works!",
-    })
+    return result(
+        {
+            "message": "It works!",
+        }
+    )
 
 
 @csrf_exempt
@@ -33,7 +35,12 @@ def user(request):
 @require_safe
 @jsonify
 def sample_error(request):
-    return error("sample-error", error_type="sample_error", display_message="This is an example of erroneous response with a custom status code", status=520)
+    return error(
+        "sample-error",
+        error_type="sample_error",
+        display_message="This is an example of erroneous response with a custom status code",
+        status=520,
+    )
 
 
 @csrf_exempt
@@ -48,22 +55,26 @@ def sample_exception(request):
 @jsonify
 def clients(request):
     if request.method == "GET" or request.method == "HEAD":
-        data = [{
-            "first_name": "Nikita",
-            "last_name": "Titov",
-            "email": "nmtitov@ya.ru",
-            "github": "https://github.com/nmtitov",
-        }, {
-            "first_name": "Nikita",
-            "last_name": "Titov",
-            "email": "nmtitov@ya.ru",
-            "github": "https://github.com/nmtitov",
-        }, {
-            "first_name": "Nikita",
-            "last_name": "Titov",
-            "email": "nmtitov@ya.ru",
-            "github": "https://github.com/nmtitov",
-        }]
+        data = [
+            {
+                "first_name": "Nikita",
+                "last_name": "Titov",
+                "email": "nmtitov@ya.ru",
+                "github": "https://github.com/nmtitov",
+            },
+            {
+                "first_name": "Nikita",
+                "last_name": "Titov",
+                "email": "nmtitov@ya.ru",
+                "github": "https://github.com/nmtitov",
+            },
+            {
+                "first_name": "Nikita",
+                "last_name": "Titov",
+                "email": "nmtitov@ya.ru",
+                "github": "https://github.com/nmtitov",
+            },
+        ]
         return result(data)
     elif request.method == "POST":
         data = {
@@ -108,25 +119,32 @@ def empty_status(request):
 @jsonify
 @pagify
 def greetings(request):
-    return [{
-        "language": "English",
-        "greeting": "Hello",
-    }, {
-        "language": "French",
-        "greeting": "Bonjour",
-    }, {
-        "language": "Spanish",
-        "greeting": "Hola",
-    }, {
-        "language": "German",
-        "greeting": "Hallo",
-    }, {
-        "language": "Italian",
-        "greeting": "Ciao",
-    }, {
-        "language": "Portugese",
-        "greeting": "Ola",
-    }]
+    return [
+        {
+            "language": "English",
+            "greeting": "Hello",
+        },
+        {
+            "language": "French",
+            "greeting": "Bonjour",
+        },
+        {
+            "language": "Spanish",
+            "greeting": "Hola",
+        },
+        {
+            "language": "German",
+            "greeting": "Hallo",
+        },
+        {
+            "language": "Italian",
+            "greeting": "Ciao",
+        },
+        {
+            "language": "Portugese",
+            "greeting": "Ola",
+        },
+    ]
 
 
 # A plain dict response with a custom structure (keep in mind that "status_code" and "body" keys are reserved)

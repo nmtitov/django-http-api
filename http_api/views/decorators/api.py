@@ -11,8 +11,12 @@ from http_api.utils.data_structures import error, result
 
 def jsonify(func):
     def json_response(body, status):
-        response_body = dumps(body, ensure_ascii=False, indent=2, sort_keys=False) if body else ""
-        return HttpResponse(response_body, status=status, content_type="application/json")
+        response_body = (
+            dumps(body, ensure_ascii=False, indent=2, sort_keys=False) if body else ""
+        )
+        return HttpResponse(
+            response_body, status=status, content_type="application/json"
+        )
 
     @wraps(func)
     def decorator(request, *args, **kwargs):
@@ -24,6 +28,7 @@ def jsonify(func):
             return json_response(view, status)
         else:
             return json_response(view, None)
+
     return decorator
 
 
@@ -34,13 +39,16 @@ def require_auth(func):
         if request.user.is_authenticated:
             return func(request, *args, **kwargs)
         else:
-            token = request.META['HTTP_X_TOKEN']  # curl -i http://localhost:8000/api/ --header "X-Token: 000"
+            token = request.META[
+                "HTTP_X_TOKEN"
+            ]  # curl -i http://localhost:8000/api/ --header "X-Token: 000"
             user = authenticate(request, token=token)
             if user:
                 login(request, user)
                 return func(request, *args, **kwargs)
             else:
                 raise PermissionDenied()
+
     return decorator
 
 
@@ -50,18 +58,29 @@ def pager(per_page=10):
         def _decorator(request, *args, **kwargs):
             view = func(request, *args, **kwargs)
             paginator = Paginator(view, per_page)
-            page_num = request.GET.get('page', 1)
+            page_num = request.GET.get("page", 1)
             page = paginator.page(page_num)
             objects = page.object_list
-            return result({
-                "pager": {
-                    "total": paginator.num_pages,
-                    "next": page.next_page_number() if page.has_next() else None,
-                    "previous": page.previous_page_number() if page.has_previous() else None,
-                },
-                "objects": list(map(lambda x: x.__dump__ if hasattr(x, "__dump__") else x, objects))
-            })
+            return result(
+                {
+                    "pager": {
+                        "total": paginator.num_pages,
+                        "next": page.next_page_number() if page.has_next() else None,
+                        "previous": page.previous_page_number()
+                        if page.has_previous()
+                        else None,
+                    },
+                    "objects": list(
+                        map(
+                            lambda x: x.__dump__ if hasattr(x, "__dump__") else x,
+                            objects,
+                        )
+                    ),
+                }
+            )
+
         return _decorator
+
     return decorator
 
 
