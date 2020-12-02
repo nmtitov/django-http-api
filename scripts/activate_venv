@@ -1,0 +1,5 @@
+#!/bin/sh
+# Execute shell script using . ./ (dot space dot slash)
+
+source venv/bin/activate
+
