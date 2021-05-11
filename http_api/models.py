@@ -13,11 +13,13 @@ from django.utils.timezone import now
 
 
 class Session(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     token = models.CharField(max_length=64, editable=False, unique=True)
+    description = models.CharField(max_length=512, null=False, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     last_seen_at = models.DateTimeField(blank=True, null=True, editable=False)
 

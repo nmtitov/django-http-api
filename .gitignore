@@ -136,3 +136,4 @@ gunicorn.pid
 
 !.gitkeep
 
+venv
