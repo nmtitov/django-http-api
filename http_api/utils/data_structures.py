@@ -1,7 +1,7 @@
 def result(data, status=200):
     return {
-        "status_code": status,
-        "result": data,
+        "s": status,
+        "r": data,
     }
 
 
@@ -14,8 +14,8 @@ def error(
     status=555,
 ):
     return {
-        "status_code": status,
-        "error": {
+        "s": status,
+        "e": {
             "name": name,
             "type": error_type,
             "display_name": display_name,
