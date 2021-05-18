@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("token", models.CharField(editable=False, max_length=64, unique=True)),
+                ("description", models.CharField(blank=True, max_length=512)),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 (
                     "last_seen_at",
