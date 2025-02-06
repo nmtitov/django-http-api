@@ -18,7 +18,7 @@ setup(
     long_description=README,
     url="https://github.com/nmtitov/django-http-api",
     author="Nikita Titov",
-    author_email="nmtitov@ya.ru",
+    author_email="nik@titov.dev",
     classifiers=[
         "Environment :: Web Environment",
         "Framework :: Django",
