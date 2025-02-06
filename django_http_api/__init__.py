@@ -1,1 +1,1 @@
-default_app_config = "http_api.apps.HttpApiConfig"
+default_app_config = "django_http_api.apps.DjangoHttpApiConfig"
