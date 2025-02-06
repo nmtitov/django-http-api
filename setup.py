@@ -9,11 +9,11 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name="django-http-api",
+    name="django_http_api",
     version="0.1.0",
-    packages=["http_api"],
+    packages=["django_http_api"],
     package_data = {
-        'http_api': ['py.typed'],
+        'django_http_api': ['py.typed'],
     },
     include_package_data=True,
     license="MIT License",
