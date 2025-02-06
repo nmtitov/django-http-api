@@ -12,6 +12,9 @@ setup(
     name="django-http-api",
     version="0.1.0",
     packages=find_packages(),
+    package_data = {
+        'http_api': ['py.typed'],
+    },
     include_package_data=True,
     license="MIT License",
     description="A Django app to build an HTTP API without hassle",
