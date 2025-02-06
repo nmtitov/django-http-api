@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name="django-http-api",
     version="0.1.0",
-    packages="http_api",
+    packages=["http_api"],
     package_data = {
         'http_api': ['py.typed'],
     },
