@@ -1,6 +1,11 @@
 Django HTTP API
 ===
 
+Sample project
+---
+
+There is an example of sample project here: https://github.com/nmtitov/django-http-api-sample
+
 Usage
 ---
 
