@@ -3,7 +3,7 @@ try:
 except ImportError:
     from os import urandom
 
-    def token_hex(nbytes=None):
+    def token_hex(nbytes: int | None = None) -> str:
         return urandom(nbytes).hex()
 
 
